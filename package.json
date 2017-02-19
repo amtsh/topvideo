@@ -1,0 +1,23 @@
+{
+  "name": "youtube-trending",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "flat": "2.0.1",
+    "heroku-ssl-redirect": "0.0.3",
+    "mongoose": "^4.7.3",
+    "notp": "^2.0.3",
+    "q": "^1.4.1",
+    "redis": "^2.6.0-2",
+    "request": "^2.72.0",
+    "request-promise": "^3.0.0"
+  }
+}
