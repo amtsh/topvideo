@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app="youtube-trends">
+
+<head>
+  <meta charset="utf-8">
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Youtube Trending</title>
+  <!-- FONT
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+  <!-- EXTERNAL CSS
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="assets/css/skeleton/normalize.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="assets/css/skeleton/skeleton.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="assets/css/index.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="assets/css/semantic/dropdown.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/semantic/transition.min.css">
+  <!-- EXTERNAL SCRIPTS
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+  <script type="text/javascript" src="assets/js/lib/angular-youtube-embed.min.js"></script>
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/js/lib/semantic/api.min.js"></script>
+  <script type="text/javascript" src="assets/js/lib/semantic/dropdown.min.js"></script>
+  <script type="text/javascript" src="assets/js/lib/semantic/transition.min.js"></script>
+  <script type="text/javascript" src="assets/js/app.js"></script>
+</head>
+
+<body>
+  <div ng-controller="main as main">
+    <div class="nav">
+      <a href="#">top videos</a>
+      <div class="middle">
+        <select name="skills" class="ui fluid search dropdown suggest" ng-model="searchQuery" ng-model-options="{updateOn : 'change blur'}" ng-change="searchYoutube()">
+				<option value="">Search ...</option>
+			 </select>
+      </div>
+      <div class="right" style="">
+        <a onclick="showSweetAlert()" class="login_icon">
+        </a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="options u-full-width">
+        <label for="">Select Country</label>
+        <select class="u-full-width" id="" ng-model="selectedRegion" ng-options="region as region.snippet.name for region in regions" ng-change="changeActiveRegion()">
+        </select>
+        <a class="button" href="#" ng-click="changeActiveCategory(category)" ng-repeat="category in categories">{{category.snippet.title}}</a>
+      </div>
+      <h5>{{error}}</h5>
+      <div id="player" class="video_container">
+        <div class="player" ng-if="videoID">
+          <youtube-video video-id="videoID" player-vars="playerVars" player-width="'100%'" player-height="'400px'"></youtube-video>
+          <div>
+            <a ng-click="playNext()" class="button control">Next</a>
+            <a ng-class="{'button-primary': repeatMode}" ng-click="setRepeatMode()" class="button control">Repeat</a>
+          </div>
+        </div>
+        <a href="#player?v={{videoID}}">
+          <div class="img" ng-repeat="video in videos track by $index">
+            <img ng-click="loadVideo(video.id)"  ng-src="{{video.snippet.thumbnails.high.url}}" alt="{{video.snippet.tags | json}}" />
+            <ul><li ng-repeat="tag in video.snippet.tags">{{tag}}</li></ul>
+          </div>
+        </a>
+      </div>
+      <div class="footer-nav">
+        <a ng-click="main.getTrendingVideos()" class="button button-primary control">Load More</a>
+      </div>
+    </div>
+    <script type="text/javascript" src="assets/js/helpers.js"></script>
+    <script type="text/javascript">
+    $('.ui.dropdown.suggest')
+      .dropdown({
+        apiSettings: {
+          url: '/api/suggestions/{query}',
+          cache: true,
+          throttle: 1
+        },
+        saveRemoteData: true,
+        onChange: function(value) {}
+      });
+    </script>
+    <script>
+    (function(i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function() {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-78881298-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+</body>
+
+</html>

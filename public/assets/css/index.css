@@ -1,0 +1,102 @@
+.nav {
+	margin: 20px 90px;
+}
+
+.nav > a {
+	font-family: "Raleway","Helvetica Neue", Helvetica, Arial, cursive;
+	font-size: 3rem;
+	/*color: #777;*/
+	color: #E50914;
+	text-decoration: none;
+}
+
+.container {
+	margin-bottom: 15%;
+}
+.options {
+	margin: 4% auto auto auto;
+}
+.video_container {
+
+}
+.player {
+	margin-top: 3%;
+	/*display: flex;
+	justify-content: center;*/
+}
+
+.footer-nav {
+	display: inline-block;
+  margin-left: 50%;
+  margin-top: 5%;
+}
+/* For small devices (e.g. smartphones) */
+
+img {
+	max-width: 100%;
+	/*display: inline-block;*/
+	/*margin: 10px 50px 20px auto;*/
+	float: left;
+	position: relative;
+	margin: 1.66%;
+}
+/* For medium devices (e.g. tablets) */
+
+@media (min-width: 420px) {
+	div.img {
+		max-width: 45%;
+	}
+}
+/* For large devices (e.g. desktops) */
+
+@media (min-width: 760px) {
+	div.img {
+		max-width: 30%;
+	}
+}
+
+.button {
+	font-size: 9px;
+	padding: 1px 18px 1px 20px;
+	margin-right: 12px;
+}
+
+ul {
+	list-style: none;
+}
+
+a.button:focus {
+	color: #1EAEDB;
+}
+a.button:active {
+	color: #1EAEDB;
+}
+
+.button.control {
+	  width: 8em;
+    height: 3em;
+    line-height: 3em;
+    padding: 0px;
+}
+
+.right {
+	display: inline;
+  float: right;
+  margin-top: 12px;
+  margin-right: inherit;
+}
+.login_icon {
+	display: block;
+  width: 43px;
+  height: 43px;
+  background: url(../images/user.svg);
+  background-size: 40px 30px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.middle {
+  display: inline-block;
+  width: 300px;
+  margin-left: 20%;
+}

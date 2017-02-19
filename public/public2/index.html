@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+   <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>top videos</title>
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <!-- EXTERNAL CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="css/skeleton.css">
+    <!-- EXTERNAL SCRIPTS
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+      <style type="text/css">
+
+      /* layout & positioning */
+      .header {
+        /*max-height: 80px;*/
+      }
+      .header-nav {
+        margin: 0px 250px;
+        padding: 30px;
+      }
+      .header-nav-logo {
+        float: left;
+      }
+      .header-nav-user {
+       float: right;
+      }
+      .body {
+        max-width: 60%;
+        margin: 5% auto;
+      }
+      div.feed, div.activity {
+        float: left;
+        display: inline-block;
+        min-width: 50%;
+        text-align: center;
+      }
+      .switch hr {
+        width: 80%;
+      }
+      /* cosmetics */
+      .header-nav-logo {
+        font-family: "Raleway","Helvetica Neue", Helvetica, Arial, cursive;
+        font-size: 2rem;
+        color: rgb(39, 39, 39);
+        text-decoration: none;
+      }
+
+      .header-nav-user {
+        width: 30px;
+        height: 30px;
+        background: url(svg/user.svg);
+        background-repeat: no-repeat;
+      }
+      hr {
+        border-width: 0;
+        border-top: 1px solid #E1E1E1;
+      }
+      .span-h1 {
+        font-size: 25px;
+        font-weight: 900;
+      }
+      .enabled {
+        color: #666;
+      }
+      .disabled {
+        color: rgba(0, 0, 0, 0.2);
+      }
+      .disabled:hover {
+        color: #666;
+      }
+      .regions {
+        padding: 70px;
+        width: 40%;
+      }
+      .label {
+        display: block;
+        margin-bottom: .5rem;
+        font-weight: 100;
+        font-size: 14px;
+        letter-spacing: 0.6px;
+      }
+      .home-form {
+        padding: 70px;
+      }
+      .category{
+        padding: 0px 8px;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+      }
+      .categories .category {
+        margin-right: 2em;
+      }
+      </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-nav">
+      <a class="header-nav-logo" href="#">top videos</a>
+      <a class="header-nav-user" href="#"></a>
+    </div>
+  </div>
+  <div class="body">
+    <div class="switch">
+      <div class="feed">
+        <span class="span-h1 enabled">Feed</span>
+        <hr>
+      </div>
+      <div class="activity">
+        <span class="span-h1 disabled">Activity</span>
+        <hr>
+      </div>
+    </div>
+    <div class="home-form">
+      <div class="region">
+        <label class="label">Region</label>
+        <select class="select regions">
+          <option>Japan</option>
+          <option>India</option>
+        </select>
+      </div>
+      <div class="categories">
+        <button class="input category">Music</button>
+        <button class="input category">Gaming</button>
+        <button class="input category">Travel</button>
+        <button class="input category">Trailers</button>
+        <button class="input category">Comedy</button>
+        <button class="input category">Movies</button>
+        <button class="input category">Animation</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

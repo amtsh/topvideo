@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html ng-app="youtube-trends">
+
+<head>
+  <meta charset="utf-8">
+  <title>Youtube Trending</title>
+    <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <!-- EXTERNAL CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/skeleton/normalize.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="css/skeleton/skeleton.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="css/index.css" media="screen" title="no title" charset="utf-8">
+    <!-- EXTERNAL SCRIPTS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="angular-youtube-embed/dist/angular-youtube-embed.min.js"></script>
+
+</head>
+
+<body>
+  <div class="nav">
+    <a href="#">top videos</a>
+  </div>
+  <div class="container" ng-controller="main">
+
+    <div class="" style="margin: 4% auto 3% auto;">
+      <label for="">Select Country</label>
+      <select class="u-full-width" id="" ng-model="selectedRegion" ng-options="region as region.snippet.name for region in regions" ng-change="changeActiveRegion()">
+      </select>
+      <a class="button" href="#" ng-click="changeActiveCategory(category)" ng-repeat="category in categories">{{category.snippet.title}}</a>
+    </div>
+    <h5>{{error}}</h5>
+
+    <div class="video_container">
+      <div class="player" ng-if="videoID">
+        <youtube-video video-id="videoID" player-vars="playerVars" player-width="'100%'" player-height="'400px'"></youtube-video>
+      </div>
+      <!-- <iframe ng-repeat="video in videos" type="text/html" frameborder="0" ng-src="{{getVideoUrl(video.id)}}" allowfullscreen></iframe> -->
+      <a href="#">
+        <img ng-click="loadVideo(video.id)" ng-repeat="video in videos" ng-src="{{video.snippet.thumbnails.high.url}}" alt="" />
+      </a>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var YOUTUBE = angular.module('youtube-trends', ['youtube-embed'])
+
+    YOUTUBE.controller('main', ['$http', '$scope', '$sce', function($http, $scope, $sce) {
+      $scope.videoID = false
+      $scope.playerVars = {
+        controls: 1,
+        autoplay: 1,
+        fs: 1,
+        showinfo: 0
+      }
+      $scope.loadVideo = function(video_id) {
+        $scope.videoID = video_id
+      }
+
+      $scope.activeRegion = ""
+      $scope.activeCategory = ""
+      $scope.error = ""
+
+      var _this = this
+
+      _this.loadRegions = function() {
+
+        $http.get('/api/regions')
+          .then(function(response) {
+            if (response.data.error) {
+              $scope.error = response.data.error.message
+            } else {
+              console.log(response.data)
+              $scope.regions = response.data.items
+              $scope.selectedRegion = $scope.regions[0]
+              $scope.changeActiveRegion($scope.selectedRegion)
+            }
+
+          }, function(response) {
+            $scope.error = response;
+          });
+      }
+
+      _this.loadCategoriesForRegion = function() {
+        region = $scope.activeRegion
+
+        $http.get('/api/categories/' + region)
+          .then(function(response) {
+            if (response.data.error) {
+              $scope.error = response.data.error.message
+            } else {
+              console.log(response)
+              $scope.categories = response.data.items
+              $scope.changeActiveCategory($scope.categories[0])
+            }
+
+          }, function(response) {
+            $scope.error = response;
+          });
+      }
+
+      _this.getTrendingVideos = function() {
+        var region = $scope.activeRegion
+        var category = $scope.activeCategory.id
+
+        console.log('/api/trending/' + region + '/' + category)
+        $http.get('/api/trending/' + region + '/' + category)
+          .then(function(response) {
+            if (response.data.error) {
+              console.log($scope.activeCategory);
+              $scope.error = $scope.activeRegion + '-' + $scope.activeCategory.snippet.title + ' : ' + response.data.error.message
+                // $scope.videos = null
+            } else {
+              $scope.error = null
+              $scope.videos = response.data.items
+              console.log($scope.videos);
+            }
+          }, function(response) {
+            $scope.error = response;
+          });
+      }
+
+      $scope.changeActiveCategory = function(category) {
+        $scope.activeCategory = category
+        _this.getTrendingVideos()
+      }
+
+      $scope.changeActiveRegion = function() {
+        $scope.activeRegion = $scope.selectedRegion.id
+        _this.loadCategoriesForRegion()
+      }
+
+      $scope.getVideoUrl = function(url) {
+        return $sce.trustAsResourceUrl("//www.youtube.com/embed/" + url);
+      }
+
+      _this.loadRegions()
+    }])
+
+  </script>
+</body>
+
+</html>
